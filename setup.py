@@ -49,6 +49,7 @@ setup(
 
     keywords='erp',
 
+    package_dir = {'':"src"},
     packages=find_packages(exclude=[]),
 
     # List run-time dependencies here.  These will be installed by pip when your
