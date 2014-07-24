@@ -1,0 +1,57 @@
+{% extends "omni/base.html" %}
+
+{% block page_title %}Websites{% endblock %}
+{% block head_title %}Websites{% endblock %}
+
+{% block content %}
+
+{% if can_edit %}
+<div class="actions" style="margin-bottom: 2em;">
+    <div class="btn-group">
+        <a href="{% url "admin:omni_customers_customer_add" %}" class="btn btn-default">Add Customer</a>
+        <a href="{% url "admin:omni_projects_project_add" %}" class="btn btn-info">Add Project</a>
+        <a href="{% url "admin:omni_devshop_website_add" %}" class="btn btn-primary">Add Website</a>
+    </div> 
+</div>
+{% endif %}
+
+{% for customer in customers %}
+<div class="panel panel-info" id="customer-{{ customer.id }}">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#customer-{{ customer.id }}" href="#customer-{{ customer.id }}-sites">
+            {{ customer }}
+          </a>
+      </h4>
+    </div>
+
+    <div id="customer-{{ customer.id }}-sites" class="panel-collapse collapse out">
+      <div class="panel-body">
+            <ul class="projects">
+                {% for project in customer.projects.all %}
+                <li>
+                    <h4>Project: {{ project.name }}</h4>
+
+                    <ul class="websites">
+                        {% for website in project.websites.all %}
+                        <li>
+                            <h5>{{ website.name }}</h5> 
+                            
+                            <ul>
+                                {% for env in website.envs.all %}
+                                <li>
+                                    <a href="{{ env.url }}" target="_blank">{{ env.mode }} - {{ env.url }}</a>
+                                </li>                                                        
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+      </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
