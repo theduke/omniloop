@@ -1,0 +1,11 @@
+Authors
+=======
+
+Lead Developers:
+----------------
+
+* Christoph Herzog - chris@theduke.at
+
+Contributors:
+-------------
+
